@@ -152,25 +152,33 @@
     }
   }
 
-  document.getElementById("signup-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const firstName = document.getElementById("first-name").value;
-    const lastName = document.getElementById("last-name").value;
-    const email = document.getElementById("email").value;
-
-    const res = await fetch("/api/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ first_name: firstName, last_name: lastName, email })
-    });
-
-    const result = await res.json();
-    if (res.ok) {
-      alert("Thanks for signing up!");
-    } else {
-      alert("Error: " + result.detail);
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("signup-form");
+    if (!form) {
+      console.error("Form not found!");
+      return;
     }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const firstName = document.getElementById("first-name").value;
+      const lastName = document.getElementById("last-name").value;
+      const email = document.getElementById("email").value;
+
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ first_name: firstName, last_name: lastName, email })
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        alert("Thanks for signing up!");
+      } else {
+        alert("Error: " + result.detail);
+      }
+    });
   });
 </script>
 </body>
