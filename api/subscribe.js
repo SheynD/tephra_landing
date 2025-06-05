@@ -25,7 +25,7 @@ export default async function handler(req, res) {
               channels: {
                 email: "consent"
               },
-              person: {
+              profile: {
                 email,
                 first_name,
                 last_name
