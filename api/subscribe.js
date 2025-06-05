@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { first_name, last_name, email } = req.body;
+  const { first_name, last_name, email, website } = req.body;
 
   // 👇 Honeypot check: if this hidden field is filled, it's likely a bot
   if (website && website.trim() !== "") {
