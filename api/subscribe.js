@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   const { first_name, last_name, email } = req.body;
-  const apiKey = process.env.KLAVIYO_API_KEY;
+  const apiKey = process.env.KLAVIYO_PRIVATE_KEY;
   const listId = process.env.KLAVIYO_LIST_ID;
 
   if (!apiKey || !listId) {
