@@ -4,7 +4,6 @@ export default async function handler(req, res) {
   }
 
   const { first_name, last_name, email } = req.body;
-
   const apiKey = process.env.KLAVIYO_PRIVATE_KEY;
   const listId = process.env.KLAVIYO_LIST_ID;
 
@@ -21,11 +20,16 @@ export default async function handler(req, res) {
         attributes: {
           list_id: listId,
           custom_source: "Tephra Signup",
-          profiles: [{
-            email: email,
-            first_name: first_name,
-            last_name: last_name
-          }]
+          subscriptions: [
+            {
+              channels: ["email"],
+              profile: {
+                email: email,
+                first_name: first_name,
+                last_name: last_name
+              }
+            }
+          ]
         }
       }
     })
