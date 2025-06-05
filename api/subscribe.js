@@ -70,6 +70,10 @@ export default async function handler(req, res) {
 
     const subscribeData = await subscribeResponse.json();
 
+    if (subscribeResponse.status === 409) {
+      return res.status(200).json({ success: true, note: "Already subscribed" });
+    }
+
     if (!subscribeResponse.ok) {
       return res.status(subscribeResponse.status).json({ error: 'Subscription failed', detail: subscribeData });
     }
