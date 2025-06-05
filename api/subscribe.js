@@ -49,7 +49,43 @@ export default async function handler(req, res) {
       });
     }
 
-    const profileId = profileData.data.id;
+    /* New stuff here */
+    let profileId;
+
+const profileResponse = await fetch('https://a.klaviyo.com/api/profiles/', {
+  method: 'POST',
+  headers: { 
+    'Authorization': `Klaviyo-API-Key ${apiKey}`,
+    'Content-Type': 'application/vnd.api+json',
+    'Accept': 'application/vnd.api+json',
+    'revision': '2025-01-15'
+  },
+  body: JSON.stringify({ /* data */ })
+});
+
+if (profileResponse.status === 409) {
+  // Fetch existing profile by email
+  const lookup = await fetch(`https://a.klaviyo.com/api/profiles?filter=email:${email}`, {
+    method: 'GET',
+    headers: { /* headers here */ }
+  });
+  const lookupData = await lookup.json();
+  profileId = lookupData.data[0]?.id;
+
+  if (!profileId) {
+    return res.status(500).json({ error: 'Unable to find existing profile after 409' });
+  }
+} else if (profileResponse.ok) {
+  const profileData = await profileResponse.json();
+  profileId = profileData.data.id;
+} else {
+  const errorData = await profileResponse.json();
+  return res.status(profileResponse.status).json({ error: 'Profile creation failed', detail: errorData });
+}
+  }
+}
+
+    /*const profileId = profileData.data.id;
 
     // Step 2: Subscribe profile to list
     const subscribeResponse = await fetch(`https://a.klaviyo.com/api/lists/${listId}/relationships/profiles`, {
@@ -82,4 +118,4 @@ export default async function handler(req, res) {
   } catch (error) {
     return res.status(500).json({ error: 'Unexpected error', detail: error.message });
   }
-}
+}*/
