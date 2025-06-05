@@ -204,27 +204,44 @@
     }
 
     form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+  e.preventDefault();
 
-      const firstName = document.getElementById("first-name").value;
-      const lastName = document.getElementById("last-name").value;
-      const email = document.getElementById("email").value;
+  const firstName = document.getElementById("first-name").value;
+  const lastName = document.getElementById("last-name").value;
+  const email = document.getElementById("email").value;
 
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ first_name: firstName, last_name: lastName, email })
-      });
-
-      const result = await res.json();
-      if (res.ok) {
-        alert("Thanks for signing up!");
-      }
-      else {
-        console.error("Klaviyo error response:", result);
-        alert("Error: " + (result?.detail || JSON.stringify(result)));
-      }
+  try {
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        first_name: firstName,
+        last_name: lastName,
+        email
+      })
     });
+
+    let result;
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      result = await res.json();
+    } else {
+      const text = await res.text();
+      console.error("Non-JSON response:", text);
+      throw new Error(text);
+    }
+
+    if (res.ok) {
+      alert("Thanks for signing up!");
+    } else {
+      console.error("Klaviyo error:", result);
+      alert("Error: " + (result?.detail || JSON.stringify(result)));
+    }
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    alert("Something went wrong. Please try again later.");
+  }
+});
   });
 </script>
 </body>
