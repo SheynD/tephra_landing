@@ -220,6 +220,7 @@
      const firstName = document.getElementById("first-name").value;
      const lastName = document.getElementById("last-name").value;
      const email = document.getElementById("email").value;
+     const website = document.getElementById("website")?.value || "";
 
   try {
     const res = await fetch("/api/subscribe", {
