@@ -226,7 +226,7 @@
     const res = await fetch("/api/subscribe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ first_name: firstName, last_name: lastName, email })
+      body: JSON.stringify({ first_name: firstName, last_name: lastName, email, website })
     });
 
     let resultText = await res.text();
