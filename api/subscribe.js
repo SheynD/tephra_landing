@@ -42,8 +42,11 @@ export default async function handler(req, res) {
 
     const profileData = await profileResponse.json();
 
-    if (!profileResponse.ok) {
-      return res.status(profileResponse.status).json({ error: 'Profile creation failed', detail: profileData });
+    if (!profileResponse.ok || !profileData?.data?.id) {
+      return res.status(profileResponse.status).json({
+        error: 'Profile creation failed',
+        detail: profileData
+      });
     }
 
     const profileId = profileData.data.id;
