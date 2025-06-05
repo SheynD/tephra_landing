@@ -2,176 +2,176 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Join Tephra</title>
+  <title>Tephra</title>
   <style>
-    .chart-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('tephra_image.png');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.15;
-      z-index: -2;
-    }
-
-    .tephra-button-small {
-      background-color: #F06529;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 8px 16px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-    
-    .tephra-button-small:hover {
-      background-color: #d75421;
-    }
-
-    /* When form is open */
-    .tephra-button-small.active {
-      background-color: #0e0e0e;
-      color: white;
-      border: 1px solid white;
-    }
-
-    .tephra-button-small.active:hover {
-      background-color: #1a1a1a;
-    }
-
-    html, body {
+    body {
       margin: 0;
       padding: 0;
       background-color: #0e0e0e;
-      overflow: hidden;
-      height: 100%;
       font-family: 'Segoe UI', sans-serif;
-      color: #ffffff;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-    }
-
-    .content-container {
+      color: white;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      flex-direction: column;
       text-align: center;
-      padding: 20px;
+      padding: 60px 20px; /* top/bottom space added */
     }
 
-    .logo-container img {
+    .logo {
       max-width: 360px;
-      height: auto;
       margin-bottom: 30px;
     }
 
-    .intro-text {
+    .graph {
+      max-width: 650px;
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+      margin: 20px 0 10px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.85);
+    }
+
+    .modal-content {
+      display: block;
+      margin: auto;
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 6px;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: white;
+      font-size: 36px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .intro {
       max-width: 600px;
-      font-size: 1.2rem;
-      line-height: 1.6;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      margin-top: 5px;
       text-align: left;
+      white-space: pre-line;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 250px;
+    }
+
+    input {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #F06529;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d75421;
     }
   </style>
 </head>
 <body>
-  <div class="chart-bg"></div>
-  <canvas id="bg-canvas"></canvas>
+  <img src="tephra_logo.png" alt="Tephra Logo" class="logo" />
 
-  <div class="content-container">
-    <div class="logo-container">
-      <img src="tephra_logo.png" alt="Tephra Logo">
-    </div>
-    <div class="intro-text">
-      Hello! We are excited that you are interested in learning more about Tephra. Our product will be out very soon, but to add yourself to the mailing list for all things Tephra, please fill out the form below. Thank you!
-    </div>
+   <!-- Graph image below logo -->
+  <img src="tephra_graph_1.png" alt="Tephra Graph" class="graph" id="graph-thumbnail" />
 
-    <div id="signup-form" style="display: block; margin-top: 40px;">
-      <form style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-        <input type="text" placeholder="First Name" required
-               style="padding: 10px; font-size: 1rem; width: 250px; border-radius: 5px; border: 1px solid #ccc;" />
-        
-        <input type="text" placeholder="Last Name" required
-               style="padding: 10px; font-size: 1rem; width: 250px; border-radius: 5px; border: 1px solid #ccc;" />
+  <!-- Modal popup -->
+<div id="image-modal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="popup-image">
+</div>
 
-        <input type="email" placeholder="Email Address" required
-               style="padding: 10px; font-size: 1rem; width: 250px; border-radius: 5px; border: 1px solid #ccc;" />
+  <div class="intro">
+  Charting the Level 2. In Real Time.
 
-        <button type="submit"
-                style="padding: 10px 20px; font-size: 1rem; cursor: pointer; background-color: #F06529; color: white; border: none; border-radius: 5px;">
-          Submit
-        </button>
-      </form>
-    </div>
-  </div>
+  Tephra is a first-of-its-kind product. An institutional grade charting system that plots time and sales in real-time, made publicly accessible through innovative engineering. Tephra’s mission is to empower traders to compete with institutions by leveling the playing field.
 
+  Tephra is coming soon. Sign up below to join our mailing list and get bonus incentives for early access.
+
+  It’s time to give the advantage back to the traders. Discover your edge and sign up today.
+</div>
+
+  <form>
+    <input type="text" id="first-name" placeholder="First Name" required />
+    <input type="text" id="last-name" placeholder="Last Name" required />
+    <input type="email" id="email" placeholder="Email Address" required />
+    <button type="submit">Submit</button>
+  </form>
   <script>
-    const canvas = document.getElementById("bg-canvas");
-    const ctx = canvas.getContext("2d");
+  const modal = document.getElementById("image-modal");
+  const img = document.getElementById("graph-thumbnail");
+  const modalImg = document.getElementById("popup-image");
+  const closeBtn = document.querySelector(".close");
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+  img.onclick = function () {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+  }
+
+  closeBtn.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
     }
+  }
 
-    function drawStaticDots() {
-      const width = canvas.width;
-      const height = canvas.height;
-      const dotCount = 150;
+  document.getElementById("signup-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      ctx.clearRect(0, 0, width, height);
+    const firstName = document.getElementById("first-name").value;
+    const lastName = document.getElementById("last-name").value;
+    const email = document.getElementById("email").value;
 
-      for (let i = 0; i < dotCount; i++) {
-        const x = Math.random() * width;
-        const y = Math.random() * height;
-        const r = Math.random() * 4 + 3;
-        const color = Math.random() > 0.5
-          ? 'rgba(255, 0, 0, 1)'
-          : 'rgba(0, 255, 0, 1)';
-
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = color;
-        ctx.fillStyle = color;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-    }
-
-    window.addEventListener("resize", () => {
-      resizeCanvas();
-      drawStaticDots();
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ first_name: firstName, last_name: lastName, email })
     });
 
-    resizeCanvas();
-    drawStaticDots();
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const toggleBtn = document.getElementById("toggle-form-btn");
-      const formDiv = document.getElementById("signup-form");
-
-      toggleBtn.addEventListener("click", () => {
-        const isVisible = formDiv.style.display === "block";
-        formDiv.style.display = isVisible ? "none" : "block";
-        toggleBtn.textContent = isVisible ? "Open Form" : "Hide Form";
-
-        // Toggle active styling
-        toggleBtn.classList.toggle("active", !isVisible);
-      });
-    });
-  </script>
+    const result = await res.json();
+    if (res.ok) {
+      alert("Thanks for signing up!");
+    } else {
+      alert("Error: " + result.detail);
+    }
+  });
+</script>
 </body>
 </html>
