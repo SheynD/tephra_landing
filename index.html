@@ -219,8 +219,10 @@
       const result = await res.json();
       if (res.ok) {
         alert("Thanks for signing up!");
-      } else {
-        alert("Error: " + result.detail);
+      }
+      else {
+        console.error("Klaviyo error response:", result);
+        alert("Error: " + (result?.detail || JSON.stringify(result)));
       }
     });
   });
