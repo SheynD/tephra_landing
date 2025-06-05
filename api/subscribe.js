@@ -8,16 +8,16 @@ export default async function handler(req, res) {
   const klaviyoPrivateKey = process.env.KLAVIYO_PRIVATE_KEY;
   const listId = process.env.KLAVIYO_LIST_ID;
 
-  const response = await fetch(`https://a.klaviyo.com/api/v2/list/${listId}/subscribe`, {
+  const response = await fetch(
+  `https://a.klaviyo.com/api/v2/list/${listId}/subscribe?api_key=${klaviyoPrivateKey}`,
+  {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${klaviyoPrivateKey}`,
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       profiles: [{ email, first_name, last_name }]
     })
-  });
+  }
+);
 
   if (!response.ok) {
     const errText = await response.text();
