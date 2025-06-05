@@ -1,53 +1,44 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
   const { first_name, last_name, email } = req.body;
-  const apiKey = process.env.KLAVIYO_PRIVATE_KEY;
-  const listId = process.env.KLAVIYO_LIST_ID;
-
-  const payload = {
-    data: {
-      type: "profile-subscription-bulk-create-job",
-      attributes: {
-        list_id: listId,
-        custom_source: "Tephra Signup",
-        subscriptions: [
-          {
-            channels: {
-              email: "consent"
-            },
-            profile: {
-              email,
-              first_name,
-              last_name
-            }
-          }
-        ]
-      }
-    }
-  };
 
   try {
-    const response = await fetch("https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/", {
-      method: "POST",
+    const response = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
+      method: 'POST',
       headers: {
-        "Authorization": `Klaviyo-API-Key ${apiKey}`,
-        "Content-Type": "application/json",
-        "revision": "2023-02-22"
+        Authorization: `Bearer ${process.env.KLAVIYO_PRIVATE_API_KEY}`,  // or hardcode for testing
+        'Content-Type': 'application/json',
+        'revision': '2023-10-15'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        data: {
+          type: "profile-subscription-bulk-create-job",
+          attributes: {
+            subscriptions: [
+              {
+                channels: {
+                  email: true
+                },
+                email: email,
+                profile: {
+                  first_name: first_name,
+                  last_name: last_name
+                }
+              }
+            ]
+          }
+        }
+      })
     });
 
-    const result = await response.json();
-
     if (!response.ok) {
-      return res.status(response.status).json({ error: "Klaviyo API error", detail: result });
+      const errorData = await response.json();
+      console.error("Klaviyo error:", errorData);
+      return res.status(500).json({ error: "Klaviyo API error", detail: errorData });
     }
 
-    return res.status(200).json({ message: "Successfully subscribed" });
-  } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error", detail: error.message });
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    return res.status(500).json({ error: "Unexpected error", detail: err.message });
   }
 }
