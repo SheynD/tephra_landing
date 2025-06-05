@@ -23,9 +23,9 @@ export default async function handler(req, res) {
           subscriptions: [
             {
               channels: {
-                email: true
+                email: "consent"
               },
-              profile: {
+              person: {
                 email,
                 first_name,
                 last_name
