@@ -1,13 +1,23 @@
 export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
+
   const { first_name, last_name, email } = req.body;
+  const apiKey = process.env.KLAVIYO_API_KEY;
+  const listId = process.env.KLAVIYO_LIST_ID;
+
+  if (!apiKey || !listId) {
+    return res.status(500).json({ error: 'Missing Klaviyo credentials' });
+  }
 
   try {
-    const response = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
-      method: 'POST',
+    const response = await fetch("https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/", {
+      method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.KLAVIYO_PRIVATE_API_KEY}`,  // or hardcode for testing
-        'Content-Type': 'application/json',
-        'revision': '2023-10-15'
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        "revision": "2023-02-22"
       },
       body: JSON.stringify({
         data: {
@@ -15,13 +25,12 @@ export default async function handler(req, res) {
           attributes: {
             subscriptions: [
               {
-                channels: {
-                  email: true
-                },
-                email: email,
+                list_id: listId,
+                channels: { email: true },
                 profile: {
-                  first_name: first_name,
-                  last_name: last_name
+                  email,
+                  first_name,
+                  last_name
                 }
               }
             ]
@@ -30,15 +39,11 @@ export default async function handler(req, res) {
       })
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Klaviyo error:", errorData);
-      return res.status(500).json({ error: "Klaviyo API error", detail: errorData });
-    }
+    const data = await response.json();
+    if (!response.ok) throw new Error(JSON.stringify(data));
 
-    return res.status(200).json({ success: true });
+    res.status(200).json({ message: "Successfully subscribed" });
   } catch (err) {
-    console.error("Unexpected error:", err);
-    return res.status(500).json({ error: "Unexpected error", detail: err.message });
+    res.status(500).json({ error: 'Klaviyo API error', detail: JSON.parse(err.message) });
   }
 }
