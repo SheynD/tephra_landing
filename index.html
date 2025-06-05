@@ -176,6 +176,7 @@
     <input type="email" id="email" placeholder="Email Address" required />
     <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off" />
     <button type="submit">Submit</button>
+    <p id="form-message" style="margin-top: 12px; color: white;"></p>
   </form>
 
   <p style="font-size: 0.85rem; color: #cccccc; margin-top: 10px; max-width: 300px;">
@@ -210,11 +211,14 @@
     }
 
    form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+     e.preventDefault();
 
-  const firstName = document.getElementById("first-name").value;
-  const lastName = document.getElementById("last-name").value;
-  const email = document.getElementById("email").value;
+     messageElement.textContent = ""; // clear previous messages
+     messageElement.style.color = "white";
+     
+     const firstName = document.getElementById("first-name").value;
+     const lastName = document.getElementById("last-name").value;
+     const email = document.getElementById("email").value;
 
   try {
     const res = await fetch("/api/subscribe", {
@@ -234,18 +238,27 @@
     }
 
     if (res.ok) {
-      alert("Thanks for signing up!");
+      //alert("Thanks for signing up!");
+      messageElement.style.color = "#4BB543"; // green
+      messageElement.textContent = "Thanks for signing up!";
+      form.reset(); // optionally clear form fields
     } 
     else if (res.status === 409) {
-      alert("You’re already subscribed to the mailing list!");
+      messageElement.style.color = "red";
+      messageElement.textContent = "You’re already subscribed to the mailing list!";
+      //alert("You’re already subscribed to the mailing list!");
     }
     else {
       console.error("Klaviyo error response:", result);
-      alert("Error: " + (result?.detail || JSON.stringify(result)));
+      messageElement.style.color = "orange";
+      messageElement.textContent = result?.detail || "Something went wrong.";
+      //alert("Error: " + (result?.detail || JSON.stringify(result)));
     }
   } catch (err) {
     console.error("Unexpected error:", err);
-    alert("Unexpected error occurred. See console for details.");
+    messageElement.style.color = "red";
+    messageElement.textContent = "Unexpected error occurred. Please try again.";
+    //alert("Unexpected error occurred. See console for details.");
   }
 });
   });
