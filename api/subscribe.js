@@ -15,10 +15,10 @@ export default async function handler(req, res) {
     const response = await fetch("https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-        "revision": "2023-02-22"
-      },
+  'Authorization': `Klaviyo-API-Key ${apiKey}`,
+  'Content-Type': 'application/json',
+  'revision': '2023-02-22'
+},
       body: JSON.stringify({
         data: {
           type: "profile-subscription-bulk-create-job",
