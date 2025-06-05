@@ -229,7 +229,11 @@
 
     if (res.ok) {
       alert("Thanks for signing up!");
-    } else {
+    } 
+    else if (res.status === 409) {
+      alert("You’re already subscribed to the mailing list!");
+    }
+    else {
       console.error("Klaviyo error response:", result);
       alert("Error: " + (result?.detail || JSON.stringify(result)));
     }
