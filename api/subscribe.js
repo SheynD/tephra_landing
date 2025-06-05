@@ -5,24 +5,36 @@ export default async function handler(req, res) {
 
   const { first_name, last_name, email } = req.body;
 
-  const klaviyoPrivateKey = process.env.KLAVIYO_PRIVATE_KEY;
+  const apiKey = process.env.KLAVIYO_PRIVATE_KEY;
   const listId = process.env.KLAVIYO_LIST_ID;
 
-  const response = await fetch(
-  `https://a.klaviyo.com/api/v2/list/${listId}/subscribe?api_key=${klaviyoPrivateKey}`,
-  {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  const response = await fetch("https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/", {
+    method: "POST",
+    headers: {
+      "Authorization": `Klaviyo-API-Key ${apiKey}`,
+      "Content-Type": "application/json",
+      "revision": "2023-02-22"
+    },
     body: JSON.stringify({
-      profiles: [{ email, first_name, last_name }]
+      data: {
+        type: "profile-subscription-bulk-create-job",
+        attributes: {
+          list_id: listId,
+          custom_source: "Tephra Signup",
+          profiles: [{
+            email: email,
+            first_name: first_name,
+            last_name: last_name
+          }]
+        }
+      }
     })
-  }
-);
+  });
 
   if (!response.ok) {
-    const errText = await response.text();
-    return res.status(500).json({ error: 'Failed to subscribe', detail: errText });
+    const errorDetail = await response.text();
+    return res.status(500).json({ error: "Klaviyo API error", detail: errorDetail });
   }
 
-  return res.status(200).json({ status: 'subscribed' });
+  return res.status(200).json({ message: "Successfully subscribed" });
 }
