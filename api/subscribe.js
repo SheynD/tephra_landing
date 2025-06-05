@@ -7,6 +7,11 @@ export default async function handler(req, res) {
 
   const { first_name, last_name, email } = req.body;
 
+  // 👇 Honeypot check: if this hidden field is filled, it's likely a bot
+  if (website && website.trim() !== "") {
+    return res.status(400).json({ error: 'Bot detected' });
+  }
+
   if (!first_name || !last_name || !email) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
