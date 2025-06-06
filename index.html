@@ -17,7 +17,7 @@
       min-height: 100vh;
       flex-direction: column;
       text-align: center;
-      padding: 60px 20px; /* top/bottom space added */
+      padding: 60px 20px; /* Top/bottom space added */
     }
 
     .logo {
@@ -214,7 +214,7 @@
    form.addEventListener("submit", async (e) => {
      e.preventDefault();
 
-     messageElement.textContent = ""; // clear previous messages
+     messageElement.textContent = ""; // Clear previous messages
      messageElement.style.color = "white";
      
      const firstName = document.getElementById("first-name").value;
@@ -234,33 +234,30 @@
 
     try {
       result = JSON.parse(resultText);
-    } catch (jsonError) {
+    }
+    catch (jsonError) {
       console.error("Response not JSON:", resultText);
       throw new Error("Invalid JSON response from server");
     }
 
     if (res.ok) {
-      //alert("Thanks for signing up!");
-      messageElement.style.color = "#4BB543"; // green
+      messageElement.style.color = "#4BB543"; // Green
       messageElement.textContent = "Thanks for signing up!";
-      form.reset(); // optionally clear form fields
+      form.reset(); // Clear form fields
     } 
     else if (res.status === 409) {
       messageElement.style.color = "red";
       messageElement.textContent = "You’re already subscribed to the mailing list!";
-      //alert("You’re already subscribed to the mailing list!");
     }
     else {
       console.error("Klaviyo error response:", result);
       messageElement.style.color = "orange";
       messageElement.textContent = result?.detail || "Something went wrong.";
-      //alert("Error: " + (result?.detail || JSON.stringify(result)));
     }
   } catch (err) {
     console.error("Unexpected error:", err);
     messageElement.style.color = "red";
     messageElement.textContent = "Unexpected error occurred. Please try again.";
-    //alert("Unexpected error occurred. See console for details.");
   }
 });
   });
