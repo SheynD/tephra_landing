@@ -254,7 +254,8 @@
       messageElement.style.color = "orange";
       messageElement.textContent = result?.detail || "Something went wrong.";
     }
-  } catch (err) {
+  }
+  catch (err) {
     console.error("Unexpected error:", err);
     messageElement.style.color = "red";
     messageElement.textContent = "Unexpected error occurred. Please try again.";
