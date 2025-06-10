@@ -188,66 +188,6 @@
       modal.style.display = "none";
     }
   }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("signup-form");
-    const messageElement = document.getElementById("form-message");
-    if (!form) {
-      console.error("Form not found!");
-      return;
-    }
-
-   form.addEventListener("submit", async (e) => {
-     e.preventDefault();
-
-     messageElement.textContent = ""; // Clear previous messages
-     messageElement.style.color = "white";
-     
-     const firstName = document.getElementById("first-name").value;
-     const lastName = document.getElementById("last-name").value;
-     const email = document.getElementById("email").value;
-     const website = document.getElementById("website")?.value || "";
-
-  try {
-    const res = await fetch("/api/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ first_name: firstName, last_name: lastName, email, website })
-    });
-
-    let resultText = await res.text();
-    let result;
-
-    try {
-      result = JSON.parse(resultText);
-    }
-    catch (jsonError) {
-      console.error("Response not JSON:", resultText);
-      throw new Error("Invalid JSON response from server");
-    }
-
-    if (res.ok) {
-      messageElement.style.color = "#4BB543"; // Green
-      messageElement.textContent = "Thanks for signing up!";
-      form.reset(); // Clear form fields
-    } 
-    else if (res.status === 409) {
-      messageElement.style.color = "red";
-      messageElement.textContent = "You’re already subscribed to the mailing list!";
-    }
-    else {
-      console.error("Klaviyo error response:", result);
-      messageElement.style.color = "orange";
-      messageElement.textContent = result?.detail || "Something went wrong.";
-    }
-  }
-  catch (err) {
-    console.error("Unexpected error:", err);
-    messageElement.style.color = "red";
-    messageElement.textContent = "Unexpected error occurred. Please try again.";
-  }
-});
-  });
 </script>
 </body>
 </html>
