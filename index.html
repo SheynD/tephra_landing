@@ -118,11 +118,6 @@
       white-space: pre-line;
     }
 
-    .intro.referrer-version .third-paragraph,
-    .intro.referrer-version .fourth-paragraph {
-      display: none;
-    }
-
     form {
       display: flex;
       flex-direction: column;
@@ -151,10 +146,6 @@
     button:hover {
       background-color: #d75421;
     }
-    /* Styles for hiding elements in the referrer version */
-    .hide-on-referrer {
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -170,16 +161,16 @@
 </div>
 
   <div class="intro">
-  <p class="first-paragraph">Charting the Level 2. In Real Time.</p>
+  Charting the Level 2. In Real Time.</p>
 
-  <p class="second-paragraph">Tephra is a first-of-its-kind product. An institutional grade charting system that plots time and sales in real-time, made publicly accessible through innovative engineering. Tephra’s mission is to empower traders to compete with institutions by leveling the playing field.</p>
+  Tephra is a first-of-its-kind product. An institutional grade charting system that plots time and sales in real-time, made publicly accessible through innovative engineering. Tephra’s mission is to empower traders to compete with institutions by leveling the playing field.
 
-  <p class="third-paragraph">Tephra is coming soon. Sign up below to join our mailing list and get bonus incentives for early access.</p>
+  Tephra is coming soon. Sign up below to join our mailing list and get bonus incentives for early access.
 
-  <p class="fourth-paragraph">Discover your edge and sign up today.</p>
+  Discover your edge and sign up today.
 </div>
 
-  <form id="signup-form" class="hide-on-referrer">
+  <form id="signup-form">
     <input type="text" id="first-name" placeholder="First Name" required />
     <input type="text" id="last-name" placeholder="Last Name" required />
     <input type="email" id="email" placeholder="Email Address" required />
@@ -188,7 +179,7 @@
     <p id="form-message" style="margin-top: 12px; color: white;"></p>
   </form>
 
-  <p class="hide-on-referrer" style="font-size: 0.85rem; color: #cccccc; margin-top: 10px; max-width: 300px;">
+  <p style="font-size: 0.85rem; color: #cccccc; margin-top: 10px; max-width: 300px;">
   By joining the mailing list, you agree to receive promotional emails about Tephra. You can unsubscribe at any time.
   </p>
   <script>
@@ -197,28 +188,6 @@
   const modalImg = document.getElementById("popup-image");
   const closeBtn = document.querySelector(".close");
   const introContent = document.getElementById("intro-content");
-    //New stuff
-      const signupForm = document.getElementById("signup-form");
-      const privacyText = document.querySelector('p[style="font-size: 0.85rem; color: #cccccc; margin-top: 10px; max-width: 300px;"]');
-
-      // Check the referrer
-      const referrer = document.referrer;
-      if (referrer.includes("https://firstterracesystems.com")) {
-        // Hide the form and the privacy text
-        signupForm.classList.add("hide-on-referrer");
-        if (privacyText) {
-          privacyText.classList.add("hide-on-referrer");
-        }
-
-        // Hide the third and fourth paragraphs within the intro div
-        introContent.querySelectorAll('.third-paragraph, .fourth-paragraph').forEach(p => {
-          p.style.display = 'none';
-        });
-
-        // Optional: Adjust styling for the intro div if needed for the shorter version
-        introContent.style.textAlign = 'center'; // Center the remaining paragraphs
-        introContent.style.maxWidth = 'initial'; // Remove max-width if it's causing issues with centering
-      }
 
   img.onclick = function () {
     modal.style.display = "block";
