@@ -4,6 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tephra</title>
+  <script>
+  function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [key, value] = cookie.trim().split('=');
+      if (key === name) return value;
+    }
+    return null;
+  }
+
+  // If they have the "noform" cookie, send them back to the no-form version
+  if (getCookie("noform") === "true") {
+    window.location.href = "/noform";
+  }
+</script>
   <style>
     body {
       margin: 0;
