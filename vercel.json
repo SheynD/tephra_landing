@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/noform", "destination": "/noform.html" }
+  ]
+}
