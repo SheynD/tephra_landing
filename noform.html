@@ -1,1 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tephra</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0e0e0e;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      padding: 60px 20px; /* Top/bottom space added */
+    }
 
+    .logo {
+      max-width: 360px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 600px) {
+  .logo {
+    max-width: 80%;
+    margin-bottom: 20px;
+  }
+
+    .graph {
+    max-width: 90%;
+    margin: 15px 0 10px;
+  }
+
+  .modal-content {
+    width: 90%;
+    max-height: 70vh;
+  }
+
+  .close {
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+  }
+
+  .intro {
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
+    max-width: 90%;
+  }
+
+  form {
+    width: 90%;
+  }
+
+  input {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 0.95rem;
+  }
+}
+
+    .graph {
+      max-width: 650px;
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+      margin: 20px 0 10px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.85);
+    }
+
+    .modal-content {
+      display: block;
+      margin: auto;
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 6px;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: white;
+      font-size: 36px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .intro {
+      max-width: 600px;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      margin-top: 5px;
+      text-align: left;
+      white-space: pre-line;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 250px;
+      margin-top: 20px;
+    }
+
+    input {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #F06529;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d75421;
+    }
+  </style>
+</head>
+<body>
+  <img src="tephra_logo.png" alt="Tephra Logo" class="logo" />
+
+   <!-- Graph image below logo -->
+  <img src="tephra_graph_1.png" alt="Tephra Graph" class="graph" id="graph-thumbnail" />
+
+  <!-- Modal popup -->
+<div id="image-modal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="popup-image">
+</div>
+
+  <div class="intro">
+  Charting the Level 2. In Real Time.</p>
+
+  Tephra is a first-of-its-kind product. An institutional grade charting system that plots time and sales in real-time, made publicly accessible through innovative engineering. Tephra’s mission is to empower traders to compete with institutions by leveling the playing field.
+
+  Tephra is coming soon. We will let you know when it arrives.
+</div>
+  <script>
+  const modal = document.getElementById("image-modal");
+  const img = document.getElementById("graph-thumbnail");
+  const modalImg = document.getElementById("popup-image");
+  const closeBtn = document.querySelector(".close");
+  const introContent = document.getElementById("intro-content");
+
+  img.onclick = function () {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+  }
+
+  closeBtn.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("signup-form");
+    const messageElement = document.getElementById("form-message");
+    if (!form) {
+      console.error("Form not found!");
+      return;
+    }
+
+   form.addEventListener("submit", async (e) => {
+     e.preventDefault();
+
+     messageElement.textContent = ""; // Clear previous messages
+     messageElement.style.color = "white";
+     
+     const firstName = document.getElementById("first-name").value;
+     const lastName = document.getElementById("last-name").value;
+     const email = document.getElementById("email").value;
+     const website = document.getElementById("website")?.value || "";
+
+  try {
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ first_name: firstName, last_name: lastName, email, website })
+    });
+
+    let resultText = await res.text();
+    let result;
+
+    try {
+      result = JSON.parse(resultText);
+    }
+    catch (jsonError) {
+      console.error("Response not JSON:", resultText);
+      throw new Error("Invalid JSON response from server");
+    }
+
+    if (res.ok) {
+      messageElement.style.color = "#4BB543"; // Green
+      messageElement.textContent = "Thanks for signing up!";
+      form.reset(); // Clear form fields
+    } 
+    else if (res.status === 409) {
+      messageElement.style.color = "red";
+      messageElement.textContent = "You’re already subscribed to the mailing list!";
+    }
+    else {
+      console.error("Klaviyo error response:", result);
+      messageElement.style.color = "orange";
+      messageElement.textContent = result?.detail || "Something went wrong.";
+    }
+  }
+  catch (err) {
+    console.error("Unexpected error:", err);
+    messageElement.style.color = "red";
+    messageElement.textContent = "Unexpected error occurred. Please try again.";
+  }
+});
+  });
+</script>
+</body>
+</html>
