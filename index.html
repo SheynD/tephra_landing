@@ -83,10 +83,15 @@
       .feature-image {
         max-width: 100%;
         height: auto;
+        display: block;
+        margin: 0 auto;
       }
 
-      .feature-container {
+      .real-time-streaming .overlay-wrapper {
         flex-direction: column;
+        padding: 20px 0;
+        background-color: #2a1e1a;
+        border-radius: 12px;
       }
 
       .real-time-streaming .overlay-text-block {
@@ -140,9 +145,21 @@
 
   <img src="Section_Divider.png" alt="Divider" class="divider"/>
 
-  <section class="feature with-overlay">
+  <!-- Feature: Real Time Streaming -->
+  <section class="feature real-time-streaming">
+    <div class="overlay-wrapper">
+      <div class="overlay-text-block">
+        <h2>Real Time Streaming</h2>
+        <p>
+          As executions are completed, Tephra’s WebSocket connection to exchanges pumps in floods of data via live channel. The dots paint the patterns as they are executed in real-time.
+        </p>
+      </div>
+      <img src="Section_03_Img.png" alt="Real Time Streaming" class="feature-image" />
+    </div>
+  </section>
+
+  <!--section class="feature with-overlay">
   <div class="feature-container">
-    <!--img src="Section_03_Img.png" alt="Real Time Streaming" class="feature-image" /-->
     <div class="feature-overlay-block">
       <h2>Real Time Streaming</h2>
       <p>
@@ -152,7 +169,7 @@
       <img src="Section_03_Img.png" alt="Real Time Streaming" class="feature-image" />
     </div>
   </div>
-</section>
+</section-->
 
   <!--section class="feature">
     <h2>Real Time Streaming</h2>
