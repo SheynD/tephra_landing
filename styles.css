@@ -1,0 +1,276 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  line-height: 1.6;
+}
+
+section {
+  padding: 40px 20px;
+}
+
+/*.hero {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: black;
+}*/
+
+/*.hero-container {
+  position: relative;
+  width: 100vw;     /* Lock to viewport width */
+  /*height: 100vh;    /* Lock to viewport height */
+  /*overflow: hidden; /* Prevent image from spilling */
+  /*display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-static {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Show full image, no cropping */
+  /*display: block;
+}*/
+
+.hero {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-container {
+  width: 100%;
+  max-width: 1600px;  /* 💥 Wider container */
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-static {
+  height: 100%;
+  width: auto;
+  max-width: 100%;  /* Keeps image from overflowing */
+  object-fit: contain;
+  display: block;
+}
+
+.hero-image {
+  width: 100%;
+  display: block;
+}
+
+/*.overlay-box {
+  position: absolute;
+  bottom: 8%;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+}*/
+
+.overlay-box {
+  position: absolute;
+  top: 82%; /* was 89.1% or similar — lower this to move up */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-text {
+  max-width: 600px;
+  margin: 0 auto 20px;
+  font-size: 1rem;
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+}
+
+/*.hero-text {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+}*/
+
+/*.early-access-btn {
+  background-color: #5c4742;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}*/
+
+.early-access-btn {
+  background-color: #5c4742;
+  color: white;
+  border: none;
+  padding: 16px 48px;      /* 💥 Taller + wider */
+  min-width: 220px;        /* 💥 Ensures a consistent width */
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+}
+
+.down-arrow {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  color: #aaa;
+}
+
+
+/*New stuff ends here */
+/*.hero-image {
+  width: 100%;
+  border-radius: 8px;
+}*/
+
+.hero-content {
+  max-width: 700px;
+  margin: 30px auto 20px;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  margin: 20px 0 10px;
+}
+
+.hero p {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+/*.early-access-btn {
+  background-color: #553333;
+  border: none;
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 30px;
+  border-radius: 4px;
+}*/
+
+.signup-form {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;  /* Increased spacing between fields */
+}
+
+.signup-form-section {
+  padding: 60px 20px;
+  margin-bottom: 80px; /* 💥 Creates space before next section */
+}
+
+.signup-form input,
+.signup-form button {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+}
+
+.signup-form input {
+  background: #fff;
+  color: #000;
+}
+
+.signup-form button {
+  background: #ff4f1f;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.feature h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  color: #ccc;
+  max-width: 700px;
+  margin: 0 auto 20px;
+  font-size: 0.95rem;
+}
+
+.feature img {
+  max-width: 90%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.divider {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  display: block;
+}
+
+footer {
+  background: #111;
+  color: #666;
+  font-size: 0.8rem;
+  padding: 30px 10px;
+}
+
+.with-overlay .feature-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.feature-overlay-block {
+  position: absolute;
+  top: 5%;  /* Adjust to push text into the colorful area */
+  width: 100%;
+  padding: 0 20px;
+  text-align: center;
+  color: white;
+  text-shadow: 0 0 8px black;
+}
+
+.feature-overlay-block h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.feature-overlay-block p {
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
