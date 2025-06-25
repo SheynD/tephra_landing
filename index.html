@@ -20,6 +20,67 @@
       window.location.href = "/noform";
     }
   </script>
+  <style>
+    @media (max-width: 768px) {
+      .overlay-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .overlay-text-block {
+        position: static;
+        margin-top: 20px;
+        padding: 0 15px;
+        text-align: center;
+      }
+
+      .feature {
+        padding: 30px 15px;
+      }
+
+      .feature h2 {
+        font-size: 1.2rem;
+      }
+
+      .feature p {
+        font-size: 0.95rem;
+      }
+
+      .hero-container {
+        flex-direction: column;
+        padding: 0 15px;
+      }
+
+      .hero-static {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .overlay-box {
+        position: static;
+        transform: none;
+        padding: 20px;
+        max-width: 100%;
+      }
+
+      .hero-text {
+        font-size: 1rem;
+        line-height: 1.5;
+        padding: 0 10px;
+        margin-bottom: 20px;
+      }
+
+      .early-access-btn {
+        display: inline-block;
+        padding: 14px 24px;
+        font-size: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Hero Section -->
