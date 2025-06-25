@@ -28,8 +28,8 @@ section {
 
 .hero-container {
   width: 100%;
-  max-width: 1800px;  /* 💥 Wider container */
-  height: 100%;
+  max-width: 1600px;  /* 💥 Wider container */
+  height: 120%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -40,7 +40,7 @@ section {
 .hero-static {
   height: 100%;
   width: auto;
-  max-width: 100%;  /* Keeps image from overflowing */
+  max-width: 120%;  /* Keeps image from overflowing */
   object-fit: contain;
   display: block;
 }
