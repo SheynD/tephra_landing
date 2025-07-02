@@ -1,3 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Join Tephra</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    function getCookie(name) {
+      const cookies = document.cookie.split(';');
+      for (let cookie of cookies) {
+        const [key, value] = cookie.trim().split('=');
+        if (key === name) return value;
+      }
+      return null;
+    }
+
+    // If they have the "noform" cookie, send them back to the no-form version
+    if (getCookie("noform") === "true") {
+      window.location.href = "/noform";
+    }
+  </script>
+  <style>
+    @media (max-width: 768px) {
+      .overlay-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .overlay-text-block {
+        position: static;
+        margin-top: 20px;
+        padding: 0 15px;
+        text-align: center;
+      }
+
+      .feature {
+        padding: 30px 15px;
+      }
+
+      .feature h2 {
+        font-size: 1.2rem;
+      }
+
+      .feature p {
+        font-size: 0.95rem;
+      }
+
+      .hero-container {
+        flex-direction: column;
+        padding: 0 15px;
+      }
+
+      .hero-static {
+        width: 95%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .overlay-box {
+        position: static;
+        transform: none;
+        padding: 20px;
+        max-width: 100%;
+      }
+
+      .hero-text {
+        font-size: 1rem;
+        line-height: 1.5;
+        padding: 0 10px;
+        margin-bottom: 20px;
+      }
+
+      .early-access-btn {
+        display: inline-block;
+        padding: 14px 24px;
+        font-size: 1rem;
+        width: 90%;
+        box-sizing: border-box;
+      }
+
+      .feature-image {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .real-time-streaming .overlay-wrapper {
+        flex-direction: column;
+        padding: 20px 0;
+        background-color: #2a1e1a;
+        border-radius: 12px;
+      }
+
+      .real-time-streaming .overlay-text-block {
+        position: static;
+        background: none;
+        padding: 15px;
+        margin-top: 20px;
+        text-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+  <div class="hero-container">
+    <img src="Section_01_Img.png" alt="Tephra Hero" class="hero-static" />
+    <div class="overlay-box">
+      <p class="hero-text">
+        Tephra is a first-of-its-kind product. An institutional grade charting system that plots time and sales in real-time, made publicly accessible through innovative engineering.
+      </p>
+      <a href="#signup-form-section" class="early-access-btn">Sign up for early access</a>
+    </div>
+  </div>
+</section>
+
+  <img src="Section_Divider.png" alt="Divider" class="divider"/>
+
+  <!-- Signup Form -->
+  <section id="signup-form-section" class="signup-form-section">
+  <form id="signup-form" class="signup-form">
+    <input type="text" id="first-name" placeholder="First Name" required />
+    <input type="text" id="last-name" placeholder="Last Name" required />
+    <input type="email" id="email" placeholder="Email Address" required />
+    <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off" />
+    <button type="submit">Submit</button>
+    <p id="form-message" style="margin-top: 12px; color: white;"></p>
+  </form>
+</section>
+
+  <img src="Section_Divider.png" alt="Divider" class="divider"/>
+
+  <!-- Sections -->
+  <section class="feature">
+    <h2>See the Market Like Never Before</h2>
+    <p>
+      Built to level the playing field, Tephra empowers you to see what the pros see: every trade, every move, as it happens.
+    </p>
+    <img src="Section_02_Img.png" alt="Market Overview" />
+  </section>
+
+  <img src="Section_Divider.png" alt="Divider" class="divider"/>
+
+  <!-- Feature: Real Time Streaming -->
+  <section class="feature real-time-streaming">
+    <div class="overlay-wrapper">
+      <div class="overlay-text-block">
+        <h2>Real Time Streaming</h2>
+        <p>
+          As executions are completed, Tephra’s WebSocket connection to exchanges pumps in floods of data via live channel. The dots paint the patterns as they are executed in real-time.
+        </p>
+      </div>
+      <img src="Section_03_Img.png" alt="Real Time Streaming" class="feature-image" />
+    </div>
+  </section>
+
+  <!--section class="feature with-overlay">
+  <div class="feature-container">
+    <div class="feature-overlay-block">
+      <h2>Real Time Streaming</h2>
+      <p>
+        As executions are completed, Tephra’s WebSocket connection to exchanges pumps in floods of data via live channel.
+        The dots paint the patterns as they are executed in real-time.
+      </p>
+      <img src="Section_03_Img.png" alt="Real Time Streaming" class="feature-image" />
+    </div>
+  </div>
+</section-->
+
+  <!--section class="feature">
+    <h2>Real Time Streaming</h2>
+    <p>
+      As executions are completed, Tephra’s WebSocket connection to exchanges pumps in floods of data via live channel. The dots paint the patterns as they are executed in real-time.
+    </p>
+    <img src="Section_03_Img.png" alt="Real Time Streaming" />
+  </section-->
+
+  <img src="Section_Divider.png" alt="Divider" class="divider"/>
+
+  <section class="feature">
+    <h2>Dynamic Loading</h2>
+    <p>
+      The flood of data that Tephra receives is loaded on charts throughout the day, consistent with both U.S. pre and post market times. Tephra presents a deep technical view of data received from partner exchanges.
+    </p>
+    <img src="Section_04_Img.png" alt="Dynamic Loading" />
+  </section>
+
+  <img src="Section_Divider.png" alt="Divider" class="divider"/>
+
+  <section class="feature">
+    <h2>Flexible Charting</h2>
+    <p>
+      The charts are designed by former institutional traders to be trader-friendly. They emphasize ease of use and clean, slant-angled views via momentum ribbons.
+    </p>
+    <img src="Section_05_Img.png" alt="Flexible Charting" />
+  </section>
+
+  <img src="Section_Divider.png" alt="Divider" class="divider"/>
+
+  <section class="feature">
+    <h2>Dots, Dots, Dots</h2>
+    <p>
+      Our charts are not summarized views. They present the raw execution data plotted as dots on a time-series axis across hundreds of valuable tickers in our system. No bars. No candlesticks. Just dots.
+    </p>
+    <img src="Section_06_Img.png" alt="Dots Dots Dots" />
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      By joining the mailing list, you agree to receive promotional emails about Tephra.<br />
+      You can unsubscribe at any time.
+    </p>
+    <p><a href="FTS-Privacy-Policy-Version-1.pdf" target="_blank" rel="noopener noreferrer" style="color: #ccc; text-decoration: none;">Privacy Policy</a></p>
+  </footer>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("signup-form");
+    const messageElement = document.getElementById("form-message");
+    if (!form) {
+      console.error("Form not found!");
+      return;
+    }
+
+   form.addEventListener("submit", async (e) => {
+     e.preventDefault();
+
+     messageElement.textContent = ""; // Clear previous messages
+     messageElement.style.color = "white";
+     
+     const firstName = document.getElementById("first-name").value;
+     const lastName = document.getElementById("last-name").value;
+     const email = document.getElementById("email").value;
+     const website = document.getElementById("website")?.value || "";
+
+  try {
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ first_name: firstName, last_name: lastName, email, website })
+    });
+
+    let resultText = await res.text();
+    let result;
+
+    try {
+      result = JSON.parse(resultText);
+    }
+    catch (jsonError) {
+      console.error("Response not JSON:", resultText);
+      throw new Error("Invalid JSON response from server");
+    }
+
+    if (res.ok) {
+      messageElement.style.color = "#4BB543"; // Green
+      messageElement.textContent = "Thanks for signing up!";
+      form.reset(); // Clear form fields
+    } 
+    else if (res.status === 409) {
+      messageElement.style.color = "red";
+      messageElement.textContent = "You’re already subscribed to the mailing list!";
+    }
+    else {
+      console.error("Klaviyo error response:", result);
+      messageElement.style.color = "orange";
+      messageElement.textContent = result?.detail || "Something went wrong.";
+    }
+  }
+  catch (err) {
+    console.error("Unexpected error:", err);
+    messageElement.style.color = "red";
+    messageElement.textContent = "Unexpected error occurred. Please try again.";
+  }
+});
+  });
+</script>
+</body>
+</html>
+
 <!--!DOCTYPE html>
 <html lang="en">
 <head>
