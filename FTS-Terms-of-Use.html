@@ -86,35 +86,34 @@
     <p>Email: contact@firstterracesystems.com</p>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const container = document.getElementById("body");
-      const paragraphs = container.querySelectorAll("p");
+    const container = document.getElementById("body");
+    const paragraphs = Array.from(container.querySelectorAll("p"));
+    const newContent = [];
+    let currentList = null;
 
-      paragraphs.forEach(p => {
-        const lines = p.textContent.split("\n");
-        const newNodes = [];
-        let currentList = null;
+    paragraphs.forEach((p) => {
+      const text = p.textContent.trim();
 
-        lines.forEach(line => {
-          const trimmed = line.trim();
-          if (trimmed.startsWith("-")) {
-            if (!currentList) {
-              currentList = document.createElement("ul");
-              newNodes.push(currentList);
-            }
-            const li = document.createElement("li");
-            li.textContent = trimmed.substring(1).trim();
-            currentList.appendChild(li);
-          } else {
-            if (currentList) currentList = null;
-            const para = document.createElement("p");
-            para.textContent = line;
-            newNodes.push(para);
-          }
-        });
-
-        p.replaceWith(...newNodes);
-      });
+      if (text.startsWith("-")) {
+        if (!currentList) {
+          currentList = document.createElement("ul");
+          newContent.push(currentList);
+        }
+        const li = document.createElement("li");
+        li.textContent = text.slice(1).trim();
+        currentList.appendChild(li);
+      } else {
+        if (currentList) {
+          currentList = null;
+        }
+        newContent.push(p);
+      }
     });
+
+    // Replace all <p> tags with the processed content
+    paragraphs.forEach(p => p.remove());
+    newContent.forEach(node => container.appendChild(node));
+  });
   </script>
 </body>
 </html>
