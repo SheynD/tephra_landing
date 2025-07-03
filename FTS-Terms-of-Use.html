@@ -29,6 +29,16 @@
       color: #ccc;
       text-decoration: none;
     }
+
+     ul {
+      list-style-type: disc;
+      padding-left: 40px;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
   </style>
 </head>
 <body>
@@ -74,5 +84,37 @@
     <p><b>10. Contact Us</b></p>
     <p>For questions about these Terms, please contact us at:</p>
     <p>Email: contact@firstterracesystems.com</p>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("terms-content");
+      const paragraphs = container.querySelectorAll("p");
+
+      paragraphs.forEach(p => {
+        const lines = p.textContent.split("\n");
+        const newNodes = [];
+        let currentList = null;
+
+        lines.forEach(line => {
+          const trimmed = line.trim();
+          if (trimmed.startsWith("-")) {
+            if (!currentList) {
+              currentList = document.createElement("ul");
+              newNodes.push(currentList);
+            }
+            const li = document.createElement("li");
+            li.textContent = trimmed.substring(1).trim();
+            currentList.appendChild(li);
+          } else {
+            if (currentList) currentList = null;
+            const para = document.createElement("p");
+            para.textContent = line;
+            newNodes.push(para);
+          }
+        });
+
+        p.replaceWith(...newNodes);
+      });
+    });
+  </script>
 </body>
 </html>
