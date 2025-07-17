@@ -103,6 +103,9 @@
       }
     }
   </style>
+  <script>
+  !function(w,d){var r=w.rdt=w.rdt||[];r.methods=["init","track","debug","identify","conversion"];r.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);r.push(e);return r}};for(var i=0;i<r.methods.length;i++){var t=r.methods[i];r[t]=r.factory(t)}r.load=function(e){var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js";t.async=!0;var n=d.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);r.init(e)};r.load("a2_h2jetxmf3vtj");r.track("PageVisit");}(window,document);
+</script>
 </head>
 <body>
   <!-- Hero Section -->
@@ -262,6 +265,7 @@
       messageElement.style.color = "#4BB543"; // Green
       messageElement.textContent = "Thanks for signing up!";
       form.reset(); // Clear form fields
+      rdt('track', 'SignUp');
     } 
     else if (res.status === 409) {
       messageElement.style.color = "red";
